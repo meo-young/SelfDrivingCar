@@ -29,6 +29,10 @@ public class CarDriveState : MonoBehaviour, ICarState
 
     public void OnStateUpdate()
     {
+        //경로 계산 전 update문 방지
+        if (agent.pathPending)
+            return;
+        
         float remainingDistance = agent.remainingDistance;
         if (remainingDistance > decelerationDistance)
         {
