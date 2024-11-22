@@ -3087,22 +3087,6 @@ MonoBehaviour:
   acceleration: 2
   stopThreshold: 1
   decelerationDistance: 20
-  brakeAcceleration: 200
-  turnSensitivity: 1
-  maxSteerAngle: 30
-  wheels:
-  - wheelModel: {fileID: 91174631}
-    wheelCollider: {fileID: 91174632}
-    axel: 0
-  - wheelModel: {fileID: 879569950}
-    wheelCollider: {fileID: 879569951}
-    axel: 0
-  - wheelModel: {fileID: 283548967}
-    wheelCollider: {fileID: 283548968}
-    axel: 1
-  - wheelModel: {fileID: 842571402}
-    wheelCollider: {fileID: 842571403}
-    axel: 1
   detectionDistance: 20
   rb: {fileID: 697114130}
   agent: {fileID: 697114124}
@@ -3123,6 +3107,7 @@ MonoBehaviour:
   navi: {fileID: 0}
   tld: {fileID: 0}
   od: {fileID: 0}
+  lc: {fileID: 0}
   moveInput: 0
   steerInput: 0
   powerOn: 0
