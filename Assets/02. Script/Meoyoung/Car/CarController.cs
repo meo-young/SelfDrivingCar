@@ -13,8 +13,6 @@ public class CarController : MonoBehaviour
     [HideInInspector] public ObstacleDetection od;
     [HideInInspector] public LightController lc;
 
-    [HideInInspector] public float moveInput;
-    [HideInInspector] public float steerInput;
     [HideInInspector] public bool powerOn;
 
     public ICarState CurrentState
