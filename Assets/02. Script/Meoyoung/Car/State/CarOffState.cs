@@ -14,7 +14,7 @@ public class CarOffState : MonoBehaviour, ICarState
 
     public void OnStateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (cc.navi.GetDestinationInfo() != null)
             cc.powerOn = true;
 
         if (cc.powerOn)
