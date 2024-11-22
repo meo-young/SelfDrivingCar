@@ -34,6 +34,9 @@ public class CarDataManager : MonoBehaviour
     [Header("# Wheel Info")]
     public List<Wheel> wheels;
 
+    [Header("# Detection Info")]
+    public float detectionDistance = 20.0f;
+
     [Header("# Component")]
     public Rigidbody rb;
     public NavMeshAgent agent;

@@ -8,12 +8,15 @@ public class CarController : MonoBehaviour
 
     [HideInInspector] public CarDataManager carData;
     [HideInInspector] public CarSound carSound;
+    [HideInInspector] public NavigationSystem navi;
+    [HideInInspector] public TrafficLightDetection tld;
+    [HideInInspector] public ObstacleDetection od;
+    [HideInInspector] public LightController lc;
 
     [HideInInspector] public float moveInput;
     [HideInInspector] public float steerInput;
     [HideInInspector] public bool powerOn;
 
-    public Transform targetPos;
     public ICarState CurrentState
     {
         get; private set;
@@ -30,6 +33,10 @@ public class CarController : MonoBehaviour
 
         carData = GetComponent<CarDataManager>();
         carSound = GetComponent<CarSound>();
+        navi = GetComponent<NavigationSystem>();
+        tld = GetComponent<TrafficLightDetection>();
+        od = GetComponent<ObstacleDetection>();
+        lc = GetComponent<LightController>();
     }
 
     private void Start()

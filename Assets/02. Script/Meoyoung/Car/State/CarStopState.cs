@@ -14,6 +14,7 @@ public class CarStopState : MonoBehaviour, ICarState
 
     public void OnStateUpdate()
     {
+        GetInputLight();
         cc.carSound.EngineSound();
     }
 
@@ -21,5 +22,11 @@ public class CarStopState : MonoBehaviour, ICarState
     public void OnStateExit()
     {
 
+    }
+
+    private void GetInputLight()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            cc.lc.ControlFrontLight();
     }
 }
