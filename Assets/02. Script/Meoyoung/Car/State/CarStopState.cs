@@ -3,6 +3,7 @@ using UnityEngine;
 public class CarStopState : MonoBehaviour, ICarState
 {
     CarController cc;
+    float detectionDistance => cc.carData.GetDetectionDistance();
 
     public void OnStateEnter(CarController _controller)
     {
@@ -15,7 +16,8 @@ public class CarStopState : MonoBehaviour, ICarState
     public void OnStateUpdate()
     {
         GetInputLight();
-        cc.carSound.EngineSound();
+        DetectObstacle();
+        cc.carSound.PlayEngineSound();
     }
 
 
@@ -28,5 +30,21 @@ public class CarStopState : MonoBehaviour, ICarState
     {
         if (Input.GetKeyDown(KeyCode.Space))
             cc.lc.ControlFrontLight();
+    }
+
+    private void DetectObstacle()
+    {
+        if (cc.od.IsObstacleInFront(detectionDistance))
+        {
+            return;
+        }
+
+        if (cc.tld.IsTrafficLightInFront(detectionDistance))
+        {
+            return;
+        }
+
+        cc.bDeceleration = false;
+        cc.ChangeState(cc.driveState);
     }
 }

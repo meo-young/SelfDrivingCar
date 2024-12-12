@@ -12,7 +12,7 @@ public class ObstacleDetection : MonoBehaviour
     {
         // BoxCast의 충돌 정보 저장
         RaycastHit hit;
-        Vector3 boxSize = new Vector3(8f, 5f, 10f);
+        Vector3 boxSize = new Vector3(8f, 5f, 5f);
 
         // 전방으로 BoxCast 실행
         if (Physics.BoxCast(
@@ -24,9 +24,9 @@ public class ObstacleDetection : MonoBehaviour
             _detectionDistance                        // 감지 거리
             ))
         {
-            for(int i=0; i<obstacleData.obstacleTagList.Count; i++)
+            for(int i=0; i<obstacleData.GetObstacleTagList().Count; i++)
             {
-                if (hit.collider.CompareTag(obstacleData.obstacleTagList[i]))
+                if (hit.collider.CompareTag(obstacleData.GetObstacleTagList()[i]))
                 {
                     return true;
                 }

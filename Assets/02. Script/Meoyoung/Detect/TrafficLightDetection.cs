@@ -6,7 +6,7 @@ public class TrafficLightDetection : MonoBehaviour
     {
         // BoxCast의 충돌 정보 저장
         RaycastHit hit;
-        Vector3 boxSize = new Vector3(8f, 5f, 20f);
+        Vector3 boxSize = new Vector3(8f, 5f, 10f);
 
         // 전방으로 BoxCast 실행
         if (Physics.BoxCast(

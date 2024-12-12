@@ -3,5 +3,11 @@
 public class CarSoundDatamanager : MonoBehaviour
 {
     [Header("# Engine Sound")]
-    public AudioClip engineSound;
+    [SerializeField] AudioClip engineSound;
+
+
+    public AudioClip GetEngineSound()
+    {
+        return engineSound;
+    }
 }

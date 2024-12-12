@@ -4,5 +4,10 @@ using UnityEngine;
 public class ObstacleDataManager : MonoBehaviour
 {
     [Header("# Obstacle Tag Info")]
-    public List<string> obstacleTagList;
+    [SerializeField] List<string> obstacleTagList;
+
+    public List<string> GetObstacleTagList()
+    {
+        return obstacleTagList;
+    }
 }
