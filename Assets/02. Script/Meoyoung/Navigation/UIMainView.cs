@@ -11,6 +11,9 @@ public class UIMainView : MonoBehaviour
     [SerializeField] Person[] ps;
     public void OnClickHandler()
     {
+        distanceText.gameObject.SetActive(true);
+        timeText.gameObject.SetActive(true);
+
         if (navigationUI.activeSelf)
             navigationUI.SetActive(false);
 
@@ -20,7 +23,6 @@ public class UIMainView : MonoBehaviour
 
     public void UpdateDistance(float _distance)
     {
-
         distanceText.text = _distance.ToString("F0") + "m";
     }
 
