@@ -28,9 +28,9 @@ public class CarSound : MonoBehaviour
     {
         carAudio.mute = true;
     }
-    public void EngineSound()
+    public void PlayEngineSound()
     {
-        carAudio.clip = soundData.engineSound;
+        carAudio.clip = soundData.GetEngineSound();
         carAudio.mute = false;
 
         currentSpeed = agent.speed;

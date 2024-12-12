@@ -8,12 +8,15 @@ public class CarController : MonoBehaviour
 
     [HideInInspector] public CarDataManager carData;
     [HideInInspector] public CarSound carSound;
+    [HideInInspector] public UIMainView ui;
     [HideInInspector] public NavigationSystem navi;
     [HideInInspector] public TrafficLightDetection tld;
     [HideInInspector] public ObstacleDetection od;
     [HideInInspector] public LightController lc;
+    [HideInInspector] public TimeChecker tc;
 
-    [HideInInspector] public bool powerOn;
+    [HideInInspector] public bool powerOn = false;
+    [HideInInspector] public bool bDeceleration = false;
 
     public ICarState CurrentState
     {
@@ -35,6 +38,8 @@ public class CarController : MonoBehaviour
         tld = GetComponent<TrafficLightDetection>();
         od = GetComponent<ObstacleDetection>();
         lc = GetComponent<LightController>();
+        ui = FindFirstObjectByType<UIMainView>();
+        tc = GetComponent<TimeChecker>();
     }
 
     private void Start()
@@ -46,6 +51,8 @@ public class CarController : MonoBehaviour
     private void Update()
     {
         UpdateState();
+        ui.UpdateDistance(navi.GetDistance());
+        ui.UpdateTimeUI(tc.GetTime());
     }
 
 

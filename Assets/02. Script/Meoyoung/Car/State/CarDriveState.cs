@@ -10,18 +10,18 @@ public class CarDriveState : MonoBehaviour, ICarState
     NavMeshAgent agent;
     float currentSpeed;
 
-    float maxSpeed => cc.carData.maxSpeed;
-    float acceleration => cc.carData.acceleration;
-    float decelerationDistance => cc.carData.decelerationDistance;
-    float stopThreshold => cc.carData.stopThreshold;
-    float detectionDistance =>cc.carData.detectionDistance;
+    float maxSpeed => cc.carData.GetMaxSpeed();
+    float acceleration => cc.carData.GetAcceleration();
+    float decelerationDistance => cc.carData.GetDecelerationDistance();
+    float stopThreshold => cc.carData.GetStopThreshold();
+    float detectionDistance =>cc.carData.GetDetectionDistance();
 
     public void OnStateEnter(CarController _controller)
     {
         if (cc == null)
             cc = _controller;
 
-        agent = cc.carData.agent;
+        agent = cc.carData.GetNavMeshAgent();
         agent.speed = 0f;
         currentSpeed = 0f;
 
@@ -39,24 +39,24 @@ public class CarDriveState : MonoBehaviour, ICarState
         DetectObstacle();
 
         float remainingDistance = agent.remainingDistance;
-        if (remainingDistance > decelerationDistance)
-            // 가속 로직 호출
-            Accelerate();
-        else
-            // 감속 로직 호출
-            Decelerate(remainingDistance);
+        if (remainingDistance < decelerationDistance)
+            cc.bDeceleration = true;
 
+        if (cc.bDeceleration)
+            Decelerate();
+        else
+            Accelerate();
         // NavMeshAgent에 현재 속도 적용
         agent.speed = Mathf.Clamp(currentSpeed, 0, maxSpeed);
 
         // 정지 조건
-        if (remainingDistance <= 5f && currentSpeed < stopThreshold)
+        if ((remainingDistance <= 5f || cc.bDeceleration) && currentSpeed < stopThreshold)
         {
             agent.speed = 0;
             currentSpeed = 0;
             cc.ChangeState(cc.stopState);
         }
-        cc.carSound.EngineSound();
+        cc.carSound.PlayEngineSound();
     }
 
     public void OnStateExit()
@@ -74,7 +74,7 @@ public class CarDriveState : MonoBehaviour, ICarState
         if (cc.tld.IsTrafficLightInFront(detectionDistance))
         {
             Debug.Log("Traffic Light");
-            // 빨간 불인지 판단 후 감속 로직 호출
+            cc.bDeceleration = true;
         }
     }
 
@@ -83,7 +83,7 @@ public class CarDriveState : MonoBehaviour, ICarState
         if (cc.od.IsObstacleInFront(detectionDistance))
         {
             Debug.Log("Obstacle");
-            // 감속 로직 호출
+            cc.bDeceleration = true;
         }
     }
 
@@ -96,10 +96,10 @@ public class CarDriveState : MonoBehaviour, ICarState
     }
 
     // 감속 함수
-    private void Decelerate(float remainingDistance)
+    private void Decelerate()
     {
         cc.lc.OnBackLight();
-        float decelerationFactor = remainingDistance / decelerationDistance; // 남은 거리 비율
-        currentSpeed = Mathf.Lerp(0, maxSpeed, decelerationFactor);
+        // 천천히 감속
+        currentSpeed = Mathf.Max(0, currentSpeed - 2.5f * Time.deltaTime);
     }
 }
